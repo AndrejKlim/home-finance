@@ -7,8 +7,8 @@ pub struct UserRepository{
 
 pub trait UserRepo{
     fn get_users(&mut self) -> Vec<User>;
-    fn create_user(&mut self, user: User);
-    fn delete_user(&mut self, user: User);
+    fn create_user(&mut self, user_name: String);
+    fn delete_user(&mut self, id: i32);
     fn get_user_by_id(&mut self, id: i32) -> User;
 }
 
@@ -31,11 +31,11 @@ impl UserRepo for UserRepository{
         users
     }
 
-    fn create_user(&mut self, user: User) {
-        unimplemented!()
+    fn create_user(&mut self, user_name: String) {
+        self.repo.client.query("insert into finance.users(name) values ($1)", &[&user_name]);
     }
 
-    fn delete_user(&mut self, user: User) {
+    fn delete_user(&mut self, id: i32) {
         unimplemented!()
     }
 
