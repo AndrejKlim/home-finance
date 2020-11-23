@@ -1,17 +1,21 @@
-use postgres::{Client, NoTls};
-use crate::model;
+pub mod user_repo;
+pub mod category_repo;
+pub mod expense_repo;
 
+use postgres::{Client, NoTls, Error};
+use crate::model::{User};
 
-pub fn get_users() {
-    let mut client =
-        Client::connect("postgresql://rust_user:password@localhost/home_fin", NoTls);
+pub struct Repository{
+    pub connect_string : String,
+    pub client : Client
+}
 
-    for row in client.unwrap().query("select * from users", &[]).unwrap()    {
-        let user = model::User {
-            id: row.get(0),
-            name: row.get(1)
-        };
-        println!("User name = {}", user.name);
+impl Repository{
+    pub fn new() -> Repository{
+        let conn_str = "postgresql://rust_user:password@localhost/home_fin";
+        Repository{
+            connect_string: conn_str.to_string(),
+            client: Client::connect(conn_str, NoTls).unwrap()
+        }
     }
-
 }
