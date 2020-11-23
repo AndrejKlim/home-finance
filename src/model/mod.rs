@@ -6,7 +6,7 @@ pub struct User {
 }
 
 pub struct Category{
-    pub id : i32,
+    pub _id : i32,
     pub name : String
 }
 
