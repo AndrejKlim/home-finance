@@ -14,10 +14,10 @@ create table finance.expense
 (
     id serial primary key,
     expense_date timestamptz,
-    price numeric,
-    description varchar(255),
-    category_id bigint references finance.category(id),
-    user_id bigint references finance.users(id)
+    price real,
+    description text,
+    category_id integer references finance.category(id),
+    user_id integer references finance.users(id)
 );
 create  table finance.planned_expense
 (

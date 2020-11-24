@@ -2,7 +2,7 @@ use super::Repository;
 use crate::model::{Expense, ExpenseBuilder};
 
 pub struct ExpenseRepository{
-    pub repo: Repository
+    pub  repo: Repository
 }
 
 pub trait ExpenseRepo{
@@ -27,7 +27,7 @@ impl ExpenseRepo for ExpenseRepository{
         for row in rows{
             expenses.push(ExpenseBuilder::new()
                 .id(row.get(0))
-                // .expense_date(row.get(1))
+                .expense_date(row.get(1))
                 .price(row.get(2))
                 .description(row.get(3))
                 .category_id(row.get(4))
@@ -40,21 +40,21 @@ impl ExpenseRepo for ExpenseRepository{
     fn create_expense(&mut self, expense: Expense) {
         self.repo.client.query(
             "insert into finance.expense(expense_date, price, description, category_id, user_id)\
-             values(now(), $2, $3, $4, $5)",
-            &[&expense.price, &expense.description,
+             values($1, $2, $3, $4, $5)",
+            &[&expense.expense_date,&expense.price, &expense.description,
                 &expense.category_id, &expense.user_id]
         );
     }
 
-    fn delete_expense(&mut self, expense: Expense) {
-        self.repo.client.query("delete from finance.expense where id = $1", &[&expense.id]);
+    fn delete_expense(&mut self, id: i32) {
+        self.repo.client.query("delete from finance.expense where id = $1", &[&id]);
     }
 
     fn get_expense_by_id(&mut self, id: i32) -> Expense {
         match self.repo.client.query_one("select * from finance.expense where id = $1", &[&id]){
             Ok(row) => ExpenseBuilder::new()
                 .id(row.get(0))
-                // .expense_date(row.get(1))
+                .expense_date(row.get(1))
                 .price(row.get(2))
                 .description(row.get(3))
                 .category_id(row.get(4))

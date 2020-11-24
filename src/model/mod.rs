@@ -55,8 +55,8 @@ impl ExpenseBuilder{
             expense_date: Local::now(),
             price: 0.0,
             description: String::new(),
-            category_id: 0,
-            user_id: 0
+            category_id: 1,
+            user_id: 1
         }
     }
 
