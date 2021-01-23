@@ -12,8 +12,9 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
             .service(
-                web::scope("/serv/")
+                web::scope("/")
                     .service(controller::get_users)
+                    .service(controller::create_user)
             )
     })
         .workers(10)

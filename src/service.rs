@@ -40,7 +40,7 @@ pub fn get_users() -> Vec<User> {
     users
 }
 
-pub fn create_user(name: String) {
+pub fn create_user(name: &str) {
     let mut client = get_db_client();
     client.query("insert into finance.users(name) values ($1)", &[&name]);
 }

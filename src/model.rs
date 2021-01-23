@@ -1,10 +1,15 @@
 use chrono::{DateTime, Local};
-use serde::Serialize;
+use serde::{Serialize,Deserialize};
 
 #[derive(Serialize)]
 pub struct User {
     pub id : i32,
     pub name : String
+}
+
+#[derive(Deserialize)]
+pub struct UserCreateRequest{
+    pub name: String
 }
 
 pub struct Category{
