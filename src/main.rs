@@ -1,6 +1,5 @@
 mod controller;
 pub mod service;
-pub mod repository;
 pub mod model;
 
 use actix_web::{App, HttpServer, web};
@@ -14,7 +13,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .service(
                 web::scope("/serv/")
-                    .service(controller::user_controller::get_users)
+                    .service(controller::get_users)
             )
     })
         .workers(10)

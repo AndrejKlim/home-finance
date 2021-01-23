@@ -1,9 +1,8 @@
 use actix_web::{get, Responder, HttpResponse};
-use crate::service::user_service::UserService;
+use crate::service;
 
 #[get("/users")]
 pub async fn get_users() -> impl Responder{
-    let mut service = UserService::new();
-    let users = service.get_users();
+    let users = service::get_users();
     HttpResponse::Ok().json(users)
 }
