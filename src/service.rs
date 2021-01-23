@@ -1,5 +1,6 @@
 use postgres::{Client, NoTls, Error};
-use crate::model::{User, Expense, Category, ExpenseBuilder};
+use log::info;
+use crate::model::{User, Expense, Category, ExpenseBuilder, ExpenseCreateRequest};
 
 struct Repository {
     pub connect_string: String,
@@ -42,6 +43,7 @@ pub fn get_users() -> Vec<User> {
 
 pub fn create_user(name: &str) {
     let mut client = get_db_client();
+    info!("Creating user with name = {}", &name);
     client.query("insert into finance.users(name) values ($1)", &[&name]);
 }
 
@@ -60,12 +62,12 @@ pub fn get_categories() -> Vec<Category> {
     categories
 }
 
-pub fn create_category(name: String) {
+pub fn create_category(name: &str) {
     let mut client = get_db_client();
     client.query("insert into finance.category(name) values ($1)", &[&name]);
 }
 
-fn get_category_by_id(id: i32) -> Category {
+pub fn get_category_by_id(id: i32) -> Category {
     let mut client = get_db_client();
     match client.query_one("select * from finance.category where id = $1", &[&id]) {
         Ok(row) => Category::new(row.get(0), row.get(1)),
@@ -95,7 +97,7 @@ pub fn get_expenses() -> Vec<Expense> {
     expenses
 }
 
-pub fn create_expense(expense: Expense) {
+pub fn create_expense(expense: ExpenseCreateRequest) {
     let mut client = get_db_client();
     client.query(
         "insert into finance.expense(expense_date, price, description, category_id, user_id)\

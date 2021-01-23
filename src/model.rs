@@ -12,13 +12,29 @@ pub struct UserCreateRequest{
     pub name: String
 }
 
+#[derive(Serialize)]
 pub struct Category{
-    pub _id : i32,
+    pub id : i32,
     pub name : String
 }
 
+#[derive(Deserialize)]
+pub struct CategoryCreateRequest{
+    pub name : String
+}
+
+#[derive(Serialize)]
 pub struct Expense{
     pub id : i32,
+    pub expense_date : DateTime<Local>,
+    pub price : f32,
+    pub description : String,
+    pub category_id : i32,
+    pub user_id : i32
+}
+
+#[derive(Deserialize)]
+pub struct ExpenseCreateRequest{
     pub expense_date : DateTime<Local>,
     pub price : f32,
     pub description : String,
@@ -50,8 +66,8 @@ impl User{
 }
 
 impl Category{
-    pub fn new(_id: i32, name: String) -> Category{
-        Category{_id, name}
+    pub fn new(id: i32, name: String) -> Category{
+        Category{id, name}
     }
 }
 
