@@ -1,5 +1,5 @@
 use crate::repository::expense_repo::{ExpenseRepository, ExpenseRepo};
-use crate::model::{Expense, ExpenseBuilder};
+use crate::model::{Expense};
 use chrono::{DateTime, Local};
 
 pub struct ExpenseService{
@@ -18,7 +18,7 @@ impl ExpenseService{
     }
 
     pub fn delete_expense(&mut self, id: i32){
-        self.repo.delete_expense();
+        self.repo.delete_expense(id);
     }
 
     pub fn get_expense_by_id(&mut self, id: i32) -> Expense{

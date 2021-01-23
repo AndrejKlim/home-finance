@@ -1,6 +1,5 @@
 use crate::repository::category_repo::{CategoryRepository, CategoryRepo};
 use crate::model::Category;
-use std::ptr::null;
 
 pub struct CategoryService{
     repo: CategoryRepository

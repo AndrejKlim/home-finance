@@ -8,7 +8,7 @@ pub struct ExpenseRepository{
 pub trait ExpenseRepo{
     fn get_expenses(&mut self) -> Vec<Expense>;
     fn create_expense(&mut self, expense: Expense);
-    fn delete_expense(&mut self, expense: Expense);
+    fn delete_expense(&mut self, id: i32);
     fn get_expense_by_id(&mut self, id: i32) -> Expense;
 }
 
