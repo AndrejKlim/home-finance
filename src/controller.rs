@@ -2,6 +2,11 @@ use actix_web::{get, post, web, Responder, HttpResponse};
 use crate::service;
 use crate::model::{UserCreateRequest, ExpenseCreateRequest, CategoryCreateRequest};
 
+#[get("")]
+pub async fn index() ->  impl Responder{
+    HttpResponse::Ok().body("Hello")
+}
+
 // Users endpoints
 #[get("/users")]
 pub async fn get_users() -> impl Responder{
