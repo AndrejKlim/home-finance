@@ -1,14 +1,22 @@
 use postgres::{Client, NoTls, Error};
 use log::info;
 use crate::model::{User, Expense, Category, ExpenseBuilder, ExpenseCreateRequest};
+use std::env;
 
 // TODO переделать этот метод чтобы было одно подключение и все его дергали
 fn get_db_client() -> Client {
-    let conn_str = "postgresql://postgres:postgres@localhost/finance";
+    let conn_str = get_db_url().as_str();
     match Client::connect(conn_str, NoTls) {
         Ok(Client) => { Client }
         Err(e) => { panic!("Error during connection to db") }
     }
+}
+
+fn get_db_url() -> String {
+    let port = env::var("DATABASE_URL")
+        .unwrap()
+        .expect("PORT must be a number");
+    port
 }
 
 // Users functions
