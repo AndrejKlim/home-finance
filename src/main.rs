@@ -10,6 +10,12 @@ use std::env;
 async fn main() -> std::io::Result<()> {
     simple_logger:: init_with_level(log::Level::Info).unwrap();
 
+    // Get the port number to listen on.
+    let port = env::var("PORT")
+        .unwrap_or_else(|_| "3000".to_string())
+        .parse()
+        .expect("PORT must be a number");
+
     HttpServer::new(|| {
         App::new()
             .service(
@@ -27,14 +33,7 @@ async fn main() -> std::io::Result<()> {
     })
         .workers(10)
         .keep_alive(15)
-        .bind(get_url())?
+        .bind(("0.0.0.0", port))?
         .run()
         .await
-}
-
-fn get_url() -> String{
-    let mut addr = "127.0.0.1:".to_owned();
-    let port = env::var("PORT").ok().unwrap_or("8080".to_owned());
-    addr.push_str(port.as_str());
-    addr
 }
