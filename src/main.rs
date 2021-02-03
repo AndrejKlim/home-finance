@@ -1,7 +1,9 @@
 mod controller;
 pub mod service;
 pub mod model;
+pub mod view;
 
+use tera::{Tera, Context};
 use actix_web::{App, HttpServer, web};
 use std::env;
 
@@ -16,10 +18,14 @@ async fn main() -> std::io::Result<()> {
         .expect("PORT must be a number");
 
     HttpServer::new(|| {
+        let tera = Tera::new("src/resources/templates/*.html").unwrap();
         App::new()
+            .data(tera)
             .service(
                 web::scope("/")
-                    .service(controller::index)
+                    .service(view::index)
+                    .service(view::add_expense_form)
+                    .service(view::handle_add_expense)
                     .service(controller::get_users)
                     .service(controller::create_user)
                     .service(controller::get_expenses)

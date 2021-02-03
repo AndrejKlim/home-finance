@@ -3,12 +3,6 @@ use crate::service;
 use crate::model::{UserCreateRequest, ExpenseCreateRequest, CategoryCreateRequest};
 use log::info;
 
-#[get("")]
-pub async fn index() ->  impl Responder{
-    info!("Start page");
-    HttpResponse::Ok().body("Hello")
-}
-
 // Users endpoints
 #[get("/users")]
 pub async fn get_users() -> impl Responder{

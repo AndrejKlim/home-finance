@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить расход</title>
+</head>
+<body>
+<div>
+    <h5>Заполните поля</h5>
+</div>
+<form action="/add" method="post">
+    <label for="expense_date">Дата покупки</label><br>
+    <input type="datetime-local" id="expense_date" name="expense_date"><br>
+    <label for="price">Цена</label><br>
+    <input type="number" id="price" name="price"><br>
+    <label for="description">Описание</label><br>
+    <input type="text" id="description" name="description"><br>
+    <label for="category_id">Категория</label><br>
+    <input type="number" id="category_id" name="category_id"><br>
+    <label for="user_id">Пользователь</label><br>
+    <input type="number" id="user_id" name="user_id"><br>
+
+    <input type="submit" value="Сохранить">
+</form>
+</body>
+</html>
