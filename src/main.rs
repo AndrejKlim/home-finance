@@ -3,7 +3,6 @@ pub mod service;
 pub mod model;
 
 use actix_web::{App, HttpServer, web};
-use log::info;
 use std::env;
 
 #[actix_rt::main]
