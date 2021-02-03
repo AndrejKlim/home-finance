@@ -1,9 +1,11 @@
 use actix_web::{get, post, web, Responder, HttpResponse};
 use crate::service;
 use crate::model::{UserCreateRequest, ExpenseCreateRequest, CategoryCreateRequest};
+use log::info;
 
 #[get("")]
 pub async fn index() ->  impl Responder{
+    info!("Start page");
     HttpResponse::Ok().body("Hello")
 }
 
